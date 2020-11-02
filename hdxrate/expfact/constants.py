@@ -3,7 +3,7 @@ from math import exp, log10
 # Here are the parameters measured in Bai et al. (1993)
 # The parameters for D and E are based on the work of Mori and al. (1997)
 # and measured by and calculated in the functions acid and base
-para={
+para = {
     "A": [0.00, 0.00, 0.00, 0.00],
     "C": [-0.54, -0.46, 0.62, 0.55],
     "F": [-0.52, -0.43, -0.235859464059171, 0.0631315866300978],
@@ -26,62 +26,59 @@ para={
 rho_Nterm_acid = -1.32
 rho_Nterm_base = 1.62
 
-lamb_Cterm_acid=0.96
-lamb_Cterm_base=-1.80
+lamb_Cterm_acid = 0.96
+lamb_Cterm_base = -1.80
 
 pKD = 15.05
 R = 1.987
 
-ka = 10**(1.62)/60
-kb = 10**(10.18)/60
-kw = 10**(-1.5)/60
+ka = 10 ** (1.62) / 60
+kb = 10 ** (10.18) / 60
+kw = 10 ** (-1.5) / 60
 
 Ea = 14000
 Eb = 17000
 Ew = 19000
 
+lamb_cterm_acid = 0.96
 
-lamb_cterm_acid=0.96
-
-lamb_cterm_base=-1.80
-
-
+lamb_cterm_base = -1.80
 
 
 def get_D(pH):
-    return 10**(-pH)
+    return 10 ** (-pH)
 
 
 def get_OD(pH):
-    return 10**(pH-pKD)
+    return 10 ** (pH - pKD)
 
 
 def get_l_DTR(temperature):
-    return (1./temperature-1/293.)/R
+    return (1. / temperature - 1 / 293.) / R
 
 
 def get_pK_his(temperature):
     Ea_his = 7500
-    return -log10(10**(-7.42)*exp(-Ea_his*(1/(R*temperature)-1/(278*R))))
+    return -log10(10 ** (-7.42) * exp(-Ea_his * (1 / (R * temperature) - 1 / (278 * R))))
 
 
 def get_pK_asp(temperature):
     Ea_asp = 1000
-    return -log10(10**(-4.48)*exp(-Ea_asp*(1/(R*temperature)-1/(278*R))))
+    return -log10(10 ** (-4.48) * exp(-Ea_asp * (1 / (R * temperature) - 1 / (278 * R))))
 
 
 def get_pK_glu(temperature):
     Ea_glu = 1083
-    return -log10(10**(-4.93)*exp(-Ea_glu*(1/(R*temperature)-1/(278*R))))
+    return -log10(10 ** (-4.93) * exp(-Ea_glu * (1 / (R * temperature) - 1 / (278 * R))))
 
 
 def get_Fta(temperature):
-    return exp(-Ea*get_l_DTR(temperature))
+    return exp(-Ea * get_l_DTR(temperature))
 
 
 def get_Ftb(temperature):
-    return exp(-Eb*get_l_DTR(temperature))
+    return exp(-Eb * get_l_DTR(temperature))
 
 
 def get_Ftw(temperature):
-    return exp(-Ew*get_l_DTR(temperature))
+    return exp(-Ew * get_l_DTR(temperature))

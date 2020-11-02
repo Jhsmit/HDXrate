@@ -61,7 +61,7 @@ def CalculateExchangeRatesForASingleChain(Chain, Temperature, pH, ReferenceData)
         10.0)
     LambdaProtonatedAcidGlu = math.log(
         10.0 ** (-0.60 - pH) / (10.0 ** -pKGlu + 10.0 ** -pH) + 10.0 ** (-0.90 - pKGlu) / (
-                    10.0 ** -pKGlu + 10.0 ** -pH), 10.0)
+                10.0 ** -pKGlu + 10.0 ** -pH), 10.0)
     LambdaProtonatedAcidHis = math.log(
         10.0 ** (-0.80 - pH) / (10.0 ** -pKHis + 10.0 ** -pH) + 10.0 ** (0.00 - pKHis) / (10.0 ** -pKHis + 10.0 ** -pH),
         10.0)
