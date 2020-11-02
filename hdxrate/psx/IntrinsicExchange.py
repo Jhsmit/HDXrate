@@ -181,22 +181,26 @@ def CalculateExchangeRatesForASingleChain(Chain, Temperature, pH, ReferenceData)
     Chain.append("CTerminal")
 
     # Account for middle residues
+    # Iteration starts at two, +1 for appending of "NTerminal", +1 for skipping the N terminal residue
     for i in range(2, len(Chain) - 1):
         Residue = Chain[i]
 
+        LeftResidue = Chain[i - 1]
+        RightResidue = Chain[i + 1]
+
         if Residue in ("P", "Pc"):
             IntrinsicEnchangeRates.append(0.0)
-
+        # If the residue or the residue on the left is unknown, skip it and add 0.0
+        elif 'X' in [Residue, LeftResidue]:  # 'X' added by JHS
+            IntrinsicEnchangeRates.append(0.0)
         else:
             # Identify neighbors
-            LeftResidue = Chain[i - 1]
-            RightResidue = Chain[i + 1]
 
             if RightResidue == "CTerminal":
                 Fa = 10.0 ** (MilneAcid[LeftResidue][1] + MilneAcid[Residue][0] + MilneAcid["CTerminal"][0])
                 Fb = 10.0 ** (MilneBase[LeftResidue][1] + MilneBase[Residue][0] + MilneBase["CTerminal"][0])
 
-            elif i == 2:
+            elif i == 2:  # Second residue in the chain
                 Fa = 10.0 ** (MilneAcid["NTerminal"][1] + MilneAcid[LeftResidue][1] + MilneAcid[Residue][0])
                 Fb = 10.0 ** (MilneBase["NTerminal"][1] + MilneBase[LeftResidue][1] + MilneBase[Residue][0])
 
@@ -222,10 +226,14 @@ def CalculateExchangeRatesForASingleChain(Chain, Temperature, pH, ReferenceData)
 
 
 if __name__ == '__main__':
-    chain = list(
-        'MSEQNNTEMTFQIQRIYTKDISFEAPNAPHVFQKDWQPEVKLDLDTASSQLADDVYEVVLRVTVTASLGEETAFLCEVQQGGIFSIAGIEGTQMAHCLGAYCPNILFPYARECITSMVSRGTFPQLNLAPVNFDALFMNYLQQQAGEGTEEHQDA')
-    k_int = CalculateExchangeRatesForASingleChain(chain, 300, 8., 'poly')
-    print
-    np.array(k_int) * 60
+    # chain = list(
+    #     'MSEQNNTEMTFQIQRIYTKDISFEAPNAPHVFQKDWQPEVKLDLDTASSQLADDVYEVVLRVTVTASLGEETAFLCEVQQGGIFSIAGIEGTQMAHCLGAYCPNILFPYARECITSMVSRGTFPQLNLAPVNFDALFMNYLQQQAGEGTEEHQDA')
 
-    np.savetxt(r'C:\Users\jhsmi\pp\PyHDX\pyhdx\expfact\k_int_psx_poly.txt', np.array(k_int) * 60)
+    chain = list('MSEQNNTEMTFXXXXQIQRIYTK')
+
+    k_int = CalculateExchangeRatesForASingleChain(chain.copy(), 300, 8., 'poly')
+    np.array(k_int) * 60
+    for k, c in zip(k_int, chain):
+        print(c, k)
+
+#    np.savetxt(r'C:\Users\jhsmi\pp\PyHDX\pyhdx\expfact\k_int_psx_poly.txt', np.array(k_int) * 60)
