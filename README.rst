@@ -16,7 +16,7 @@ HDXrate
 
 
 
-Python package collection of HDX intrinsic exchange rate calculation
+Python package collection for HDX intrinsic exchange rate calculation
 
 
 * Free software: GNU General Public License v3
@@ -31,7 +31,14 @@ Features
 Credits
 -------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+ExPfact
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+https://github.com/skinnersp/exPfact
+
+    Skinner, S. P., Radou, G., Tuma, R., Houwing-Duistermaat, J. J. & Paci, E. Estimating Constraints for Protection Factors from HDX-MS Data. Biophysical Journal 116, 1194–1203 (2019).
+
+PSX
+
+https://github.com/Niels-Bohr-Institute-XNS-StructBiophys/PSX
+
+    Pedersen, M. C. et al. PSX, Protein–Solvent Exchange: software for calculation of deuterium-exchange effects in small-angle neutron scattering measurements from protein coordinates. J Appl Cryst 52, 1427–1436 (2019).
