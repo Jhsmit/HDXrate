@@ -16,17 +16,27 @@ HDXrate
 
 
 
-Python package collection for HDX intrinsic exchange rate calculation
+Python package collection for HDX intrinsic exchange rate calculation. This package bundles two existing implementations of this calculation, exPfact and PSX.
 
+The calculations are based on the following papers:
+
+  Bai, Y., Milne, J. S., Mayne, L. & Englander, S. W. Primary structure effects on peptide group hydrogen exchange. 
+`Proteins Structure, Function, and Bioinformatics <https://doi.org/10.1002/prot.340170110>`_ 17, 75–86 (1993)
+
+  Mori, S., Zijl, P. C. M. van & Shortle, D. Measurement of water–amide proton exchange rates in the denatured state of staphylococcal nuclease by a magnetization transfer technique. 
+`Proteins Structure, Function, and Bioinformatics <https://doi.org/10.1002/(SICI)1097-0134(199707)28:3%3C325::AID-PROT3%3E3.0.CO;2-B>`_ 28, 325–332 (1997).
+
+See also the excel sheet on the Englander group website: http://hx2.med.upenn.edu/download.html
+
+`Biophysical Journal <https://doi.org/10.1016/j.bpj.2019.02.024>`_
 
 * Free software: GNU General Public License v3
-* Documentation: https://hdxrate.readthedocs.io.
 
 
 Features
 --------
 
-* TODO
+Calculate instrinsic rate of amide hydrogen exchange in proteins.
 
 Credits
 -------
