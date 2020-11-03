@@ -61,12 +61,15 @@ The overall trend in exchange rates is similar but there is an constant 1.8-2.5 
 with outliers up to ~10-fold.
 
 .. raw:: html
+
     <img src="comparisons/Rate differences.png" width="800" />
 
-The histograms show fold-difference between exPfact and PSX (poly) for different pH values (T=300K).
+The histograms show fold-difference between exPfact and PSX (poly) for different pH values (T=300K). Differences range
+from 1.6-fold to 40-fold.
 
 
 .. raw:: html
+
     <img src="comparisons/Rate differences histograms.png" width="800" />
 
 
