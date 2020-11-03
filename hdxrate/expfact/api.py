@@ -24,7 +24,7 @@ def calc_k_int(sequence, temperature, pH):
 
     list(sequence).copy()
 
-    k_int_list = [-1.]  # first residue
+    k_int_list = [0.]  # first residue
     for i, (previous, current) in enumerate(zip(sequence[:-1], sequence[1:])):
         if previous == 'X' or current == 'X':
             k_int_list.append(0.)

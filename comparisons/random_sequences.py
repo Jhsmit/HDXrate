@@ -30,7 +30,6 @@ for ax, pH in zip(axes.flatten(), pHs):
 
     diffs = np.array(diffs)
     diffs = diffs[~np.isnan(diffs)]  # remove NaN
-    diffs = diffs[diffs != 0.]  # Remove 0
 
     ax.set_yscale('log')
     ax.hist(diffs, bins=75)
@@ -45,4 +44,5 @@ for ax, pH in zip(axes.flatten(), pHs):
     # 9 1.6064194484834653 45.168683743072926
 
 plt.tight_layout()
+#plt.show()
 plt.savefig('Rate differences histograms.png')
