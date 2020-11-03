@@ -9,6 +9,7 @@ from hdxrate.psx.api import calc_k_int as psx_k_int
 import numpy as np
 import matplotlib.pyplot as plt
 
+np.random.seed(43)
 amino_acids = list('GALMFWKQESPVICYHRNDT')
 repeats = 100
 temperature = 300
@@ -28,40 +29,20 @@ for ax, pH in zip(axes.flatten(), pHs):
         diffs += list(psx_poly / expfact)
 
     diffs = np.array(diffs)
-    diffs = diffs[~np.isnan(diffs)]
+    diffs = diffs[~np.isnan(diffs)]  # remove NaN
+    diffs = diffs[diffs != 0.]  # Remove 0
 
     ax.set_yscale('log')
     ax.hist(diffs, bins=75)
     ax.set_title(f'pH {pH}')
     ax.set_ylabel('Count')
     ax.set_xlabel('Fold difference')
-#fig.suptitle('Intrisic rate differences expfact / psx')
+    ax.set_xlim(0, None)
+    #print(pH, np.min(diffs), np.max(diffs)) :
+    # 6 1.586076428945057 4.323111639721702
+    # 7 1.6062294252044966 6.2163497448764105
+    # 8 1.606402448281534 31.978492966181015
+    # 9 1.6064194484834653 45.168683743072926
+
 plt.tight_layout()
 plt.savefig('Rate differences histograms.png')
-
-
-# #
-# fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 5), sharex=True)
-# ax1.set_yscale('log')
-# ax1.scatter(r_number, psx_poly, label='psx_poly')
-# ax1.scatter(r_number, psx_oligo, label='psx_oligo')
-# ax1.scatter(r_number, expfact, label='expfact')
-# ax1.set_ylim(0.1, 1e5)
-# ax1.set_ylabel('Intrinsic Exchange \n rate (1/s)')
-# ax1.legend()
-#
-# ax2.plot(r_number, psx_poly / expfact, color='k', label='psx_poly / expfact')
-# ax2.plot(r_number, psx_oligo / expfact, color='k', linestyle='--', label='psx_oligo / expfact')
-# ax2.set_ylabel('Fold difference')
-# ax2.set_xlabel('Residue number')
-# ax2.legend()
-# ax2.plot()
-# plt.show()
-#
-# #
-# # fig, ax = plt.subplots()
-# # #ax.set_yscale('log')
-# # #ax.plot(psx, label='psx')
-# # ax.plot(expfact / psx, label='expfact')
-# # ax.legend()
-# # plt.show()
