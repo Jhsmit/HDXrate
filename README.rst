@@ -46,12 +46,31 @@ https://github.com/skinnersp/exPfact
 
 
 PSX
----
+```
 https://github.com/Niels-Bohr-Institute-XNS-StructBiophys/PSX
 
  Pedersen, M. C. et al. PSX, Protein–Solvent Exchange: software for calculation of deuterium-exchange effects in small-angle neutron scattering measurements from protein coordinates. `J Appl Cryst <https://doi.org/10.1107/S1600576719012469/>`_ 52, 1427–1436 (2019).
 
+Examples
+--------
+
+See `/comparisons` for the code to generate the graphs below.
+
+The graph below shows intrinsic rates of H/D exchange calculated with exPfact / PSX (PSX: 'poly' and 'oligo').
+The overall trend in exchange rates is similar but there is an constant 1.8-2.5 fold difference between different methods,
+with outliers up to ~10-fold.
+
+.. raw:: html
+    <img src="comparisons/Rate differences.png" width="800" />
+
+The histograms show fold-difference between exPfact and PSX (poly) for different pH values (T=300K).
+
+
+.. raw:: html
+    <img src="comparisons/Rate differences histograms.png" width="800" />
+
+
 Maintenance
------------
+```````````
 
 * Jochem Smit <jhsmit@gmail.com> / <jochem.smit@kuleuven.be>
