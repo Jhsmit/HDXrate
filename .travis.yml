@@ -1,27 +1,20 @@
-# Config file for automatic testing at travis-ci.com
-
 language: python
 python:
-  - '3.6'
-  - '3.7'
-  - '3.8'
-  - '3.9'
-
-# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+- '3.6'
+- '3.7'
+- '3.8'
+- '3.9'
 install: pip install -r requirements.txt
-
-# Command to run tests, e.g. python setup.py test
 script:
-  - python -m pytest tests
-
+- python -m pytest tests
 before_deploy:
-  - pip install setuptools wheel pbr
+- pip install setuptools wheel pbr
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
   user: Jhsmit
   password:
-    secure: hGsdmTjY5FD+KjDGs4UDE1kxpVvhk+cUhgNxPqV0sKmQ0+GH3A4D7Q/20bXS761ClXzORtuhVAuT+zGj9vwrVFy5W+qrke6OLq5evOce7ZB7L7cWZWaEAGHgGvceyZABxK71HnNV4W/9cAg3rU41n3YGuPfRASMk2u9WNpvLnJDENqwi8dFhtRfieRg72e4WBJ1A1mvjcKgH+6bOtRnOP5E04g5u7S7PEUeJE6Fa4D0i3AsN5+/4RPwenA88WPDnHrrzwogzECANnRwBDkHFfkIwQSP1wGjT/WJY4n+FspuLX2Z64JVt9HNnkuXbClXz53Wafmhu1qG031tPZPGOkQ/ywCLzO/rHpQ/GETKlsofzTocCmlP64PmRKH9wPYbfo2Wrhin2cxyT6sSlrKUgsr64mKaNWUL9A+F4+Re/2HlrZmP53ceJfJP/7CaLe8G3LvpstLhVM+L0ZaOCshKtLEPICQZ/7BCLS0AikE3qm2O7/fEvpXA9Mcyg+795DAm5NTHIBXS8ViAonl2Vfua5ES9s26GHyKTOkjrRNAGmVF7IW6urNK9J4paTj+uHRvzLwrOHe9RA5ytFeccRNrM/YlFTu4XeMOqDwub+FVSO5Cb+hbUZtmWRLSR8enwNejb8OqAzuyAfqah+iZIcyqAHnCCPbeF23JX/5s3AX9m8l/8=
+    secure: S3ap5oQ+jIfGkQiOLLCMud6rjO+jUH1nWyEUIs/dkZhD5tjoIiGPNWkRgmbuI5QNK59my0WpfyWk0fTMMnSAgbI+3vr8QAvVIDi17ZXoBsD7YYjc4kgSbCuqCoDEFsXr6swv7u4ChBaqS9PkD5CTp/9h8Ay8Q9GTGOiMC4JN9wvEiIWfTzZRIbQum+Vn+ifLt0FZWPlFgjidUhfCwGS4Txywm4+32xjW/T5BP9xr/hc3DR5xzoTSmusQhAw8wVI0NaVXdV6hM2mWg0M/2QhsKDEqJVs9hOMiMEpHmCQWUlbmznuBM3wdIdUly8MrCnb1rBon6uREyaL9fOKLH7vFfRnFLwxZUl+G17tUoSnrSk1WCuao417vloaHGx3CmHGVj345JYTuo6xbIA14QNUq9RHGQof9y8QajzBNgeBP3E663MC97VfHHnnjPt5AgUv0n/YYIk2zbG6ME1x+9Px9fNjlqw7kwrLUEt43rUi3bYkCbFKELZyUQgIZoQKrY7I262ouSITzZQtOzpF6IgpErxfXLvfn2N+2/YcZ3AVHwlDMWjR6Gg+OEJmS3FvsQs7n9+1704fHmqKmszzsgmBTcvhppXuh3K8zINjyUbZmvEqANDO3ts8LpUEXKtsYvCVgBL01JAYPfatR/cmRsOeKyMZMDoZujJKHXHwKkx/bUNo=
   edge: true
   on:
     tags: true
