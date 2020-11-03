@@ -2,20 +2,21 @@
 
 language: python
 python:
-- '3.5'
-- '3.6'
-- '3.7'
-- '3.8'
-- '3.9'
+  - '3.5'
+  - '3.6'
+  - '3.7'
+  - '3.8'
+  - '3.9'
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -r requirements.txt
 
 # Command to run tests, e.g. python setup.py test
-script: tox
+script:
+  - pytest
 
 before_deploy:
-- pip install setuptools wheel pbr
+  - pip install setuptools wheel pbr
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
