@@ -13,7 +13,7 @@ install: pip install -r requirements.txt
 
 # Command to run tests, e.g. python setup.py test
 script:
-  - pytest
+  - python -m pytest tests
 
 before_deploy:
   - pip install setuptools wheel pbr
