@@ -6,7 +6,7 @@ from hdxrate.psx.api import calc_k_int as psx_k_int
 from hdxrate import k_int_from_sequence
 
 
-class TestHdxrate(object):
+class TestHDXrate(object):
     """Tests for `hdxrate` package."""
 
     @classmethod
