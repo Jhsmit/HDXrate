@@ -35,6 +35,17 @@ Features
 
 Calculate instrinsic rate of amide hydrogen exchange in proteins.
 
+Usage
+-----
+
+::
+
+   >>> from hdxrate import k_int_from_sequence
+   >>> k_int_from_sequence('HHHHH', 300, 7.)
+   array([0.00000000e+00, 2.62430718e+03, 6.29527446e+01, 6.29527446e+01,
+       9.97734191e-01])
+
+
 Credits
 -------
 
