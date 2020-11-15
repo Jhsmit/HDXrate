@@ -3,7 +3,6 @@
 ###########
 import sys
 import math
-import numpy as np
 
 
 ################################################################
@@ -224,16 +223,3 @@ def CalculateExchangeRatesForASingleChain(Chain, Temperature, pH, ReferenceData)
 
     return IntrinsicEnchangeRates
 
-
-if __name__ == '__main__':
-    # chain = list(
-    #     'MSEQNNTEMTFQIQRIYTKDISFEAPNAPHVFQKDWQPEVKLDLDTASSQLADDVYEVVLRVTVTASLGEETAFLCEVQQGGIFSIAGIEGTQMAHCLGAYCPNILFPYARECITSMVSRGTFPQLNLAPVNFDALFMNYLQQQAGEGTEEHQDA')
-
-    chain = list('MSEQNNTEMTFXXXXQIQRIYTK')
-
-    k_int = CalculateExchangeRatesForASingleChain(chain.copy(), 300, 8., 'poly')
-    np.array(k_int) * 60
-    for k, c in zip(k_int, chain):
-        print(c, k)
-
-#    np.savetxt(r'C:\Users\jhsmi\pp\PyHDX\pyhdx\expfact\k_int_psx_poly.txt', np.array(k_int) * 60)

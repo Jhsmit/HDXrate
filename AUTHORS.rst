@@ -2,14 +2,7 @@
 Credits
 =======
 
-This package is a collection of two implemenations of calculating intrinsic deuterium exchange rates of amide hydrogens based on a protein's primary sequence and the temperature and pH of the experiment.
-
-
-ExPfact
--------
-https://github.com/skinnersp/exPfact
-
-  Skinner, S. P., Radou, G., Tuma, R., Houwing-Duistermaat, J. J. & Paci, E. Estimating Constraints for Protection Factors from HDX-MS Data. `Biophysical Journal <https://doi.org/10.1016/j.bpj.2019.02.024>`_ 116, 1194–1203 (2019).
+This package is a collection of one implemenation of calculating intrinsic deuterium exchange rates of amide hydrogens based on a protein's primary sequence and the temperature and pH of the experiment.
 
 
 PSX

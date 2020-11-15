@@ -16,7 +16,7 @@ HDXrate
 
 
 
-Python package collection for HDX intrinsic exchange rate calculation. This package bundles two existing implementations of this calculation, exPfact and PSX.
+Python package collection for HDX intrinsic exchange rate calculation. This package bundles existing implementations of this calculation.
 
 The calculations are based on the following papers:
 
@@ -48,13 +48,6 @@ Usage
 
 Credits
 -------
-
-ExPfact
--------
-https://github.com/skinnersp/exPfact
-
-  Skinner, S. P., Radou, G., Tuma, R., Houwing-Duistermaat, J. J. & Paci, E. Estimating Constraints for Protection Factors from HDX-MS Data. `Biophysical Journal <https://doi.org/10.1016/j.bpj.2019.02.024>`__ 116, 1194–1203 (2019).
-
 
 PSX
 ```

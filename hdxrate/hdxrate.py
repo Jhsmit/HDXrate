@@ -1,5 +1,5 @@
 """
-This script provides and API to expfact and psx intrinsic exchange rate calculation
+This script provides and API to psx intrinsic exchange rate calculation
 Copyright (C) 2020 Jochem Smit
 
 This program is free software: you can redistribute it and/or modify
@@ -18,12 +18,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 
-
-from hdxrate.expfact.api import calc_k_int as expfact_k_int
 from hdxrate.psx.api import calc_k_int as psx_k_int
 
 
-def k_int_from_sequence(sequence, temperature, pH, module='expfact', **kwargs):
+def k_int_from_sequence(sequence, temperature, pH, module='psx', **kwargs):
     """
     Calculate intrinsic rate of amide hydrogen exchange.
 
@@ -40,7 +38,7 @@ def k_int_from_sequence(sequence, temperature, pH, module='expfact', **kwargs):
     pH: :obj:`float`
         pH of labelling buffer. (pH read? pH corrected? pD?)
     module: :obj:`str`
-        Which module to use for calculating intrinsic rates. Default is 'expfact', options are 'expfact', 'psx'
+        Which module to use for calculating intrinsic rates. Default is 'psx'.
     **kwargs:
         Additional module-specific kwargs to pass on intrinsic rate calculation. See module .api for details.
 
@@ -53,12 +51,10 @@ def k_int_from_sequence(sequence, temperature, pH, module='expfact', **kwargs):
     """
 
     sequence = list(sequence)
-    if module == 'expfact':
-        func = expfact_k_int
-    elif module == 'psx':
+    if module == 'psx':
         func = psx_k_int
     else:
-        raise ValueError(f"Invalid value '{module}' specified for module. Options are 'expfact' or 'psx')")
+        raise ValueError(f"Invalid value '{module}' specified for module. Options are 'psx'")
 
     k_int = func(sequence, temperature, pH, **kwargs)
 

@@ -13,8 +13,6 @@ def calc_k_int(sequence, temperature, pH, reference_data='poly'):
         Temperature of the labelling buffer in Kelvin
     pH: :obj:`float`
         pH of labelling buffer. (pH read? pH corrected? pD?)
-    module: :obj:`str`
-        Which module to use for calculating intrinsic rates. Default is 'expfact', options are 'expfact', 'psx'
     reference_data: :obj:`str`
         'poly' or 'oligo'
 
