@@ -1,0 +1,34 @@
+#   			    MILNE ACID		    MILNE BASE
+#	    		    LAMBDA	RHO		LAMBDA	RHO
+ALANINE     	A	0.00	 0.00	0.00	0.00
+CYSTEIN     	C	-0.54	-0.46	0.62	0.55
+CYSTINE     	C2	-0.74	-0.58	0.55	0.46
+ASP COO-    	D0	0.90	0.58	0.10	-0.18 # Deprotenated
+# ASPARTIC ACID	D	Calculated based on pH & pKa
+ASP COOH    	D+	-0.90	-0.12	0.69	0.60  # Protenated
+GLU COO-    	E0	-0.90	0.31	-0.11	-0.15 # Deprotenated
+# GLUTAMIC ACID	E	Calculated based on pH & pKa
+GLU COOH    	E+	-0.60	-0.27	0.24	0.39  # Protenated
+PHENYLALANINE	F	-0.52	-0.43	-0.24	0.06
+GLYCINE     	G	-0.22	0.22	-0.03	0.17
+HIS N       	H0	0.00 	0.00 	-0.10	0.14  # Deprotenated
+# HIS       	H	Calculated based on pH & pKa
+HIS+        	H+	-0.80	-0.51	0.80	0.83  # Protenated
+ISOLEUCINE  	I	-0.91	-0.59	-0.73	-0.23
+LYSINE      	K	-0.56	-0.29	-0.04	0.12
+LEUCINE     	L	-0.57	-0.13	-0.58	-0.21
+METHIONINE  	M	-0.64	-0.28	-0.01	0.11
+ASPARAGINE  	N	-0.58	-0.13	0.49	0.32
+PROLINE     	P	nan 	-0.19	nan 	-0.24
+PRO cis     	Pc	nan 	-0.85	nan 	0.60
+GLUTAMINE   	Q	-0.47	-0.27	0.06 	0.20
+ARGININE    	R	-0.59	-0.32	0.08 	0.22
+SERINE      	S	-0.44	-0.39	0.37 	0.30
+THREONINE   	T	-0.79	-0.47	-0.07 	0.20
+VALINE      	V	-0.74	-0.30	-0.70 	-0.14
+TRYPTOPHANE 	W	-0.40	-0.44	-0.41 	-0.11
+TYROSINE    	Y	-0.41	-0.37	-0.27 	0.05
+N-Term      	NT	nan 	-1.32	nan 	1.62
+C-Term      	CT	nan 	nan 	-1.80	nan   # C-Term lambda acid value calculated based on pH and pKa
+-NHMe       	NMe	0.51	nan 	-0.71	nan
+H3CCO-      	Ac	nan 	0.29	nan 	-0.20
