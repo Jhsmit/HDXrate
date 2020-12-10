@@ -33,7 +33,18 @@ See also the excel sheet on the Englander group website: http://hx2.med.upenn.ed
 Features
 --------
 
-Calculate instrinsic rate of amide hydrogen exchange in proteins.
+Calculate intrinsic rate of amide hydrogen exchange in proteins.
+
+Installation
+------------
+
+::
+   $ pip install hdxrate
+
+or
+
+::
+   $ conda install -c conda-forge hdxrate
 
 Usage
 -----
