@@ -14,7 +14,7 @@ class TestHDXrate(object):
     def test_k_int_calculation(self):
         seq = 'AAAWADEAA'
 
-        pH_read = 7.4
+        pH_read = 6.6
         temp = 279
 
         rates = k_int_from_sequence(seq, temp, pH_read, reference='poly', ph_correction='englander', wildcard='X') * 60

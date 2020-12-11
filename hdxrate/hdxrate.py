@@ -74,7 +74,7 @@ def get_side_chain_dictionary(temperature, pH):
 
 
 def correct_pH(pH_read, method='englander'):
-    return pH_read - 0.4
+    return pH_read + 0.4
 
 
 def k_int_from_sequence(sequence, temperature, pH_read, reference='poly', ph_correction='englander', wildcard='X'):
@@ -115,18 +115,19 @@ def k_int_from_sequence(sequence, temperature, pH_read, reference='poly', ph_cor
     for i, residue in enumerate(sequence):
         if residue == 'NT':
             continue
-        elif i == 1:
+        elif i == 1: # First residue
             k_int.append(np.inf)
             continue
 
         next_residue = sequence[i + 1]
         prev_residue = sequence[i - 1]
-        if residue in ['P', 'Pc']:  # Proline residues do not exchange
+        # Proline or unknown residues are set to zero rate
+        if residue in ['P', 'Pc'] or wildcard in [prev_residue, residue]:
             k_int.append(0.)
-            continue
-        if wildcard in [prev_residue, residue]:  # Unknown residues get assigned rate 0
-            k_int.append(0.)
-            continue
+            if next_residue == 'CT':
+                break
+            else:
+                continue
 
         # Format is left_acid, right_acid, left_base, right_base
         _, prev_rho_acid, _, prev_rho_base = side_chain_dict[prev_residue]
