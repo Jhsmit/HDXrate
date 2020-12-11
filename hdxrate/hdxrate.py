@@ -21,7 +21,6 @@ import numpy as np
 from pathlib import Path
 
 R = 1.987
-pKD = 15.05
 
 # Activation energies (cal/mol)
 E_act = {
@@ -35,13 +34,15 @@ E_act = {
 
 root_dir = Path(__file__).parent
 
-def get_side_chain_dictionary(temperature, pH):
+
+def get_side_chain_dictionary(temperature, pH, k_reference):
     """
 
     Parameters
     ----------
     temperature
     pH
+    k_reference
 
     Returns
     -------
@@ -57,7 +58,6 @@ def get_side_chain_dictionary(temperature, pH):
 
     side_chain_dict = {elem['short_name']: np.array(list(elem)[2:]) for elem in side_chain_array}
     for residue in ['D', 'E', 'H']: # residues D, E, H are calculated based on pH and pKa
-        k_reference = {'D': 4.48, 'E': 4.93, 'H': 7.42}
         k_corrected = -np.log10(10**-k_reference[residue] * np.exp(-E_act[residue] * (1 / temperature - 1 / 278) / R)) # Check correct reference temperature
 
         deprotenated = side_chain_dict[residue + '0']
@@ -77,25 +77,39 @@ def correct_pH(pH_read, method='englander'):
     return pH_read + 0.4
 
 
-def k_int_from_sequence(sequence, temperature, pH_read, reference='poly', ph_correction='englander', wildcard='X'):
+def k_int_from_sequence(sequence, temperature, pH_read, reference='poly', exchange_type='HD',
+                        ph_correction='englander', wildcard='X'):
     # Reference rates Ala-Ala corrected to 20C in units of per second.
     # Nguyen et al, 2018, Table 1. / Englander xls sheets
     #todo update for DH exchange
 
     if len(sequence) <3:
         raise ValueError('Sequence needs a minimum length of 3')
+    if exchange_type not in ['HD', 'DH']:
+        raise ValueError(f"Unsupported exchange type '{exchange_type}'")
 
-    pD = correct_pH(pH_read, method=ph_correction)
-    conc_D = 10.**-pD
-    conc_OD = 10.**(pD - pKD)
+    if exchange_type == 'HD':
+        exponents = np.array([1.62, 10.18, -1.5])
+        pD = correct_pH(pH_read, method=ph_correction)
+        pKD = 15.05
+        k_reference = {'D': 4.48, 'E': 4.93, 'H': 7.42}  # HD
 
-    exponents = np.array([1.62, 10.18, -1.5])
+
+    elif exchange_type == 'DH':
+        exponents = np.array([1.4, 10., -1.6])
+        pD = pH_read
+        pKD = 14.17
+        E_act['D'] -= 40
+        k_reference = {'D': 3.87, 'E': 4.33, 'H': 7.0}  #DH
+
+    conc_D = 10. ** -pD
+    conc_OD = 10. ** (pD - pKD)
+
     k_values = (10 ** exponents) / 60
-
+    oligo_factors = [2.34, 1.35, 1.585]
     if reference == 'poly':
         k_acid_ref, k_base_ref, k_water_ref = k_values
     elif reference == 'oligo':
-        oligo_factors = [2.34, 1.35, 1.585]
         k_acid_ref, k_base_ref, k_water_ref = k_values * oligo_factors
     else:
         raise ValueError("Value for 'reference' mush be either 'poly' or 'oligo'")
@@ -109,7 +123,7 @@ def k_int_from_sequence(sequence, temperature, pH_read, reference='poly', ph_cor
     k_base = k_base_ref * np.exp(-E_act['base'] * (1 / temperature - 1 / 293) / R)
     k_water = k_water_ref * np.exp(-E_act['water'] * (1 / temperature - 1 / 293) / R)
 
-    side_chain_dict = get_side_chain_dictionary(temperature, pD)
+    side_chain_dict = get_side_chain_dictionary(temperature, pD, k_reference)
 
     k_int = []
     for i, residue in enumerate(sequence):
