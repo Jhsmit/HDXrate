@@ -32,8 +32,6 @@ E_act = {
     'H': 7500.
 }
 
-root_dir = Path(__file__).parent
-
 
 def get_side_chain_dictionary(temperature, pH, k_reference):
     """
@@ -52,6 +50,7 @@ def get_side_chain_dictionary(temperature, pH, k_reference):
 
     """
 
+    root_dir = Path(__file__).parent
     names = ['name', 'short_name', 'acid_lambda', 'acid_rho', 'base_lambda', 'base_rho']
     side_chain_array = np.genfromtxt(root_dir / 'constants.txt', comments='#', skip_header=2, delimiter='\t', dtype=None,
                                      names=names, encoding=None, autostrip=True)
