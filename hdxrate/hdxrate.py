@@ -1,5 +1,5 @@
 """
-This script provides and API to psx intrinsic exchange rate calculation
+This script is a python implementation of the Englander xls sheets for intrinsic rates
 Copyright (C) 2020 Jochem Smit
 
 This program is free software: you can redistribute it and/or modify
