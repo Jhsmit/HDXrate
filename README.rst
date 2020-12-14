@@ -38,11 +38,13 @@ Installation
 ------------
 
 ::
+
    $ pip install hdxrate
 
 or
 
 ::
+
    $ conda install -c conda-forge hdxrate
 
 Usage
