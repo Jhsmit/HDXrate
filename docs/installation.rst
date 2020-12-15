@@ -14,13 +14,11 @@ To install HDXrate, run this command in your terminal:
 
     $ pip install hdxrate
 
-This is the preferred method to install HDXrate, as it will always install the most recent stable release.
+Or
 
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
+.. code-block:: console
 
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+    $ conda install -c conda-forge hdxrate
 
 
 From sources
