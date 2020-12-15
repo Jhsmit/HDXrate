@@ -30,5 +30,5 @@ TRYPTOPHANE 	W	-0.40	-0.44	-0.41 	-0.11
 TYROSINE    	Y	-0.41	-0.37	-0.27 	0.05
 N-Term      	NT	nan 	-1.32	nan 	1.62
 C-Term      	CT	nan 	nan 	-1.80	nan   # C-Term lambda acid value calculated based on pH and pKa
--NHMe       	NMe	0.51	nan 	-0.71	nan
-H3CCO-      	Ac	nan 	0.29	nan 	-0.20
+#-NHMe       	NMe	0.51	nan 	-0.71	nan
+#H3CCO-      	Ac	nan 	0.29	nan 	-0.20
