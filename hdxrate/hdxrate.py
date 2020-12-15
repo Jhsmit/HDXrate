@@ -35,19 +35,37 @@ E_act = {
 
 def get_side_chain_dictionary(temperature, pH, k_reference):
     """
+    Returns a dictionary with inductive effects of side chains on H/D exchange rates.
+
+    Values are from [1]_, [2]_, [3]_, as described in [4]_
 
     Parameters
     ----------
-    temperature
-    pH
-    k_reference
+    temperature: :obj:`float`
+        Temperature in Kelvin.
+    pH: :obj:`float`
+        pH/pD value.
+    k_reference: :obj:`dict`
+        Dictionary of references values for amino acids D, E, H
 
     Returns
     -------
 
     constants: :obj:`dict`
-        List of side chain modifiers (acid_lambda, acid_rho, base_lambda, base_rho)
+        Dictionary of side chain modifiers. Values are: (acid_lambda, acid_rho, base_lambda, base_rho)
 
+    References
+    ----------
+
+    .. [1] Bai, Y., Milne, J. S., Mayne, L. & Englander, S. W. Primary structure effects on peptide group hydrogen
+       exchange. Proteins: Structure, Function, and Bioinformatics 17, 75–86 (1993).
+    .. [2] Connelly, G. P., Bai, Y., Jeng, M.-F. & Englander, S. W. Isotope effects in peptide group hydrogen
+       exchange. Proteins 17, 87–92 (1993).
+    .. [3] Mori, S., Zijl, P. C. M. van & Shortle, D. Measurement of water–amide proton exchange rates in the
+       denatured state of staphylococcal nuclease by a magnetization transfer technique. Proteins: Structure,
+       Function, and Bioinformatics 28, 325–332 (1997).
+    .. [4] Nguyen, D., Mayne, L., Phillips, M. C. & Walter Englander, S. Reference Parameters for Protein Hydrogen
+       Exchange Rates. J. Am. Soc. Mass Spectrom. 29, 1936–1939 (2018).
     """
 
     root_dir = Path(__file__).parent
@@ -72,15 +90,86 @@ def get_side_chain_dictionary(temperature, pH, k_reference):
     return side_chain_dict
 
 
-def correct_pH(pH_read, method='englander'):
-    return pH_read + 0.4
+def correct_pH(pH_read, d_percentage=100.):
+    """
+    Correct for pH as described in Nguyen et al, 2018[1]_.
+    This adds 0.4 to the pH value multiplied by the deuteration percentage.
+
+    Note that there is no consensus on this correction factor. See also Rubinson, 2017[2]_
+
+    Parameters
+    ----------
+    pH_read: :obj:`float`
+        pH value of the solution as read by a standard glass electrode pH meter.
+    d_percentage: :obj:`float`
+        Percentage of deuterium in the solution.
+
+    Returns
+    -------
+    pH_corrected : :obj:`float`
+        Corrected pH value (pD)
+
+    References
+    ----------
+
+   .. [1] Nguyen, D., Mayne, L., Phillips, M. C. & Walter Englander, S. Reference Parameters for Protein
+      Hydrogen Exchange Rates. J. Am. Soc. Mass Spectrom. 29, 1936–1939 (2018).
+   .. [2] Rubinson, K. A. Practical corrections for p(H,D) measurements in mixed H 2 O/D 2 O biological buffers.
+      Anal. Methods 9, 2744–2750 (2017).
+   """
+
+    pH_corrected = pH_read + 0.4 * d_percentage / 100
+    return pH_corrected
 
 
 def k_int_from_sequence(sequence, temperature, pH_read, reference='poly', exchange_type='HD',
-                        ph_correction='englander', wildcard='X'):
-    # Reference rates Ala-Ala corrected to 20C in units of per second.
-    # Nguyen et al, 2018, Table 1. / Englander xls sheets
-    #todo update for DH exchange
+                        d_percentage=100., ph_correction=True, wildcard='X'):
+    """
+    Calculated intrisic rates of exchange for amide hydrogens in proteins.
+
+    Calculations are based on  [1]_, [2]_, [3]_ and [4]_.
+
+
+    Parameters
+    ----------
+    sequence: iterable object
+        Input sequence in single-letter amino acid codes. Use 'Pc' for cis Proline, 'C2' for Cystine (disulfide)
+    temperature: :obj:`float`
+        Temperature of the exchange reaction in Kelvin.
+    pH_read: :obj:`float`
+        pH read by a standard glass electrode. If `ph_correction` is `True` this is corrected to pD in the case of `HD`
+        exchange. pH changes due to temperature difference between measuring temperature and exchange temperature is
+        buffer dependent and is not corrected for.
+    reference: :obj:`str`
+        Use `poly` or `oligo` reference data.
+    exchange_type: :obj:`str`
+        The type of exchange. Options are `HD`, `DH` or `HH`.
+    d_percentage: :obj:`float`
+        Percentage of Deuterium in the reaction solution. Used for pH/pD correction.
+    ph_correction: :obj:`bool`
+        Whether or not to correct the supplied `pH_read` value to pD. `DH` and `HH` exchange pH is not corrected.
+    wildcard: :obj:`str`:
+        Wildcard to use for unknown amino acids in the sequence. Amino acids with the wildcard and amino acids to the
+        right (C-term) of wildcard residues return 0. as rate.
+
+    Returns
+    -------
+    rates : :class:`~numpy.ndarray`
+        Array with exchange rates in units of per second.
+
+    References
+    ----------
+
+    .. [1] Bai, Y., Milne, J. S., Mayne, L. & Englander, S. W. Primary structure effects on peptide group hydrogen
+       exchange. Proteins: Structure, Function, and Bioinformatics 17, 75–86 (1993).
+    .. [2] Connelly, G. P., Bai, Y., Jeng, M.-F. & Englander, S. W. Isotope effects in peptide group hydrogen
+       exchange. Proteins 17, 87–92 (1993).
+    .. [3] Mori, S., Zijl, P. C. M. van & Shortle, D. Measurement of water–amide proton exchange rates in the
+       denatured state of staphylococcal nuclease by a magnetization transfer technique. Proteins: Structure,
+       Function, and Bioinformatics 28, 325–332 (1997).
+    .. [4] Nguyen, D., Mayne, L., Phillips, M. C. & Walter Englander, S. Reference Parameters for Protein Hydrogen
+       Exchange Rates. J. Am. Soc. Mass Spectrom. 29, 1936–1939 (2018).
+    """
 
     if len(sequence) <3:
         raise ValueError('Sequence needs a minimum length of 3')
@@ -89,7 +178,7 @@ def k_int_from_sequence(sequence, temperature, pH_read, reference='poly', exchan
 
     if exchange_type == 'HD':
         exponents = np.array([1.62, 10.18, -1.5])
-        pD = correct_pH(pH_read, method=ph_correction)
+        pD = correct_pH(pH_read, d_percentage) if ph_correction else pH_read
         pKD = 15.05
         k_reference = {'D': 4.48, 'E': 4.93, 'H': 7.42}  # HD
     elif exchange_type == 'DH':
@@ -132,7 +221,7 @@ def k_int_from_sequence(sequence, temperature, pH_read, reference='poly', exchan
     for i, residue in enumerate(sequence):
         if residue == 'NT':
             continue
-        elif i == 1: # First residue
+        elif i == 1:  # First residue
             k_int.append(np.inf)
             continue
 
