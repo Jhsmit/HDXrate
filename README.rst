@@ -21,6 +21,9 @@ The calculations are based on the following papers:
 
   Bai, Y., Milne, J. S., Mayne, L. & Englander, S. W. Primary structure effects on peptide group hydrogen exchange. `Proteins Structure, Function, and Bioinformatics <https://doi.org/10.1002/prot.340170110>`__ 17, 75–86 (1993)
 
+  Connelly, G. P., Bai, Y., Jeng, M.-F. & Englander, S. W. Isotope effects in peptide group hydrogen exchange. `Proteins <http://doi.wiley.com/10.1002/prot.340170111>`__ 17, 87–92 (1993).
+
+
   Mori, S., Zijl, P. C. M. van & Shortle, D. Measurement of water–amide proton exchange rates in the denatured state of staphylococcal nuclease by a magnetization transfer technique. `Proteins Structure, Function, and Bioinformatics <https://doi.org/10.1002/(SICI)1097-0134(199707)28:3%3C325::AID-PROT3%3E3.0.CO;2-B>`__ 28, 325–332 (1997)
   
   Nguyen, D., Mayne, L., Phillips, M. C. & Walter Englander, S. Reference Parameters for Protein Hydrogen Exchange Rates. `J. Am. Soc. Mass Spectrom.  <https://pubs.acs.org/doi/abs/10.1021/jasms.8b05911>`__ 29, 1936–1939 (2018).
