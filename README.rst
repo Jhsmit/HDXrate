@@ -13,7 +13,8 @@ HDXrate
         :target: https://hdxrate.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-
+.. image:: https://zenodo.org/badge/309354423.svg
+   :target: https://zenodo.org/badge/latestdoi/309354423
 
 
 Python package collection for HDX intrinsic exchange rate calculation. 
