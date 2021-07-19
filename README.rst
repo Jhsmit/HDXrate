@@ -17,7 +17,7 @@ HDXrate
    :target: https://zenodo.org/badge/latestdoi/309354423
 
 
-Python package collection for HDX intrinsic exchange rate calculation. 
+Python package for HDX intrinsic exchange rate calculation. 
 The calculations are based on the following papers:
 
   Bai, Y., Milne, J. S., Mayne, L. & Englander, S. W. Primary structure effects on peptide group hydrogen exchange. `Proteins Structure, Function, and Bioinformatics <https://doi.org/10.1002/prot.340170110>`__ 17, 75–86 (1993)
