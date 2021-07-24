@@ -27,7 +27,7 @@ The calculations are based on the following papers:
 
   Mori, S., Zijl, P. C. M. van & Shortle, D. Measurement of water–amide proton exchange rates in the denatured state of staphylococcal nuclease by a magnetization transfer technique. `Proteins Structure, Function, and Bioinformatics <https://doi.org/10.1002/(SICI)1097-0134(199707)28:3%3C325::AID-PROT3%3E3.0.CO;2-B>`__ 28, 325–332 (1997)
   
-  Nguyen, D., Mayne, L., Phillips, M. C. & Walter Englander, S. Reference Parameters for Protein Hydrogen Exchange Rates. `J. Am. Soc. Mass Spectrom.  <https://pubs.acs.org/doi/abs/10.1021/jasms.8b05911>`__ 29, 1936–1939 (2018).
+  Nguyen, D., Mayne, L., Phillips, M. C. & Walter Englander, S. Reference Parameters for Protein Hydrogen Exchange Rates. `J. Am. Soc. Mass Spectrom.  <https://doi.org/10.1007/s13361-018-2021-z>`__ 29, 1936–1939 (2018).
 
 ..
    1.Rubinson, K. A. Practical corrections for p(H,D) measurements in mixed H 2 O/D 2 O biological buffers. Anal. Methods 9, 2744–2750 (2017).
