@@ -32,6 +32,11 @@ E_act = {
     'H': 7500.
 }
 
+D_E_act = {
+    'D_HD' : 1000.,
+    'D_DH' : 1000. - 40,
+    'D_HH' : 1000. - 40
+}
 
 def get_side_chain_dictionary(temperature, pH, k_reference):
     """
@@ -181,17 +186,18 @@ def k_int_from_sequence(sequence, temperature, pH_read, reference='poly', exchan
         pD = correct_pH(pH_read, d_percentage) if ph_correction else pH_read
         pKD = 15.05
         k_reference = {'D': 4.48, 'E': 4.93, 'H': 7.42}  # HD
+        E_act['D'] = D_E_act['D_HD']
     elif exchange_type == 'DH':
         exponents = np.array([1.4, 10., -1.6])
         pD = pH_read
         pKD = 14.17
-        E_act['D'] -= 40
+        E_act['D'] = D_E_act['D_DH']
         k_reference = {'D': 3.87, 'E': 4.33, 'H': 7.0}  #DH
     elif exchange_type == 'HH':
         exponents = np.array([1.39, 10.08, -1.6])
         pD = pH_read
         pKD = 14.17
-        E_act['D'] -= 40
+        E_act['D'] = D_E_act['D_HH']
         k_reference = {'D': 3.88, 'E': 4.35, 'H': 7.11}  #HH
 
     conc_D = 10. ** -pD
