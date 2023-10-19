@@ -1,6 +1,5 @@
 """Tests for `hdxrate` package."""
 
-from __future__ import annotations
 import numpy as np
 from hdxrate import k_int_from_sequence
 from hdxrate.hdxrate import get_side_chain_dictionary
@@ -15,12 +14,12 @@ pth = Path(__file__).parent
 
 
 @pytest.fixture()
-def seq1() -> list[str]:
+def seq1():
     return list("AAAWADEAA")
 
 
 @pytest.fixture()
-def seq2() -> list[str]:
+def seq2():
     """sequence two a sequence of the pairwise combination of all side chains"""
     k_reference = {"D": 3.87, "E": 4.33, "H": 7.0}  # DH
     chains_dict = get_side_chain_dictionary(278, 8, k_reference)
