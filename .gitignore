@@ -104,3 +104,6 @@ ENV/
 # IDE settings
 .vscode/
 .idea
+
+# folder with development scripts
+dev/
