@@ -6,9 +6,6 @@ HDXrate
 .. image:: https://img.shields.io/pypi/v/hdxrate.svg
         :target: https://pypi.python.org/pypi/hdxrate
 
-.. image:: https://img.shields.io/travis/Jhsmit/hdxrate.svg
-        :target: https://travis-ci.com/Jhsmit/hdxrate
-
 .. image:: https://readthedocs.org/projects/hdxrate/badge/?version=latest
         :target: https://hdxrate.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
