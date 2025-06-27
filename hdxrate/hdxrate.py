@@ -209,8 +209,6 @@ def k_int_from_sequence(
 
     if len(sequence) < 3:
         raise ValueError("Sequence needs a minimum length of 3")
-    if exchange_type not in ["HD", "DH", "HH"]:
-        raise ValueError(f"Unsupported exchange type '{exchange_type}'")
 
     activation_energy = E_act.copy()
     if exchange_type == "HD":
