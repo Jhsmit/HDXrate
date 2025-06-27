@@ -2,7 +2,7 @@
 
 import numpy as np
 from hdxrate import k_int_from_sequence
-from hdxrate.hdxrate import get_side_chain_dictionary
+from hdxrate.hdxrate import get_side_chain_dictionary, E_act
 from pathlib import Path
 from functools import reduce
 from itertools import combinations
@@ -22,7 +22,7 @@ def seq1():
 def seq2():
     """sequence two a sequence of the pairwise combination of all side chains"""
     k_reference = {"D": 3.87, "E": 4.33, "H": 7.0}  # DH
-    chains_dict = get_side_chain_dictionary(278, 8, k_reference)
+    chains_dict = get_side_chain_dictionary(278, 8, k_reference, E_act)
     one_letter = [k for k in chains_dict.keys() if len(k) == 1]
     seq2 = reduce(add, [a + b for a, b in combinations(one_letter, 2)])
 
