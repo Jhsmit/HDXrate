@@ -178,6 +178,7 @@ def k_int_from_sequence(
     d_percentage=100.0,
     ph_correction=True,
     wildcard="X",
+    return_sum=True,
 ):
     """
     Calculated intrisic rates of exchange for amide hydrogens in proteins.
@@ -206,6 +207,8 @@ def k_int_from_sequence(
     wildcard: :obj:`str`:
         Wildcard to use for unknown amino acids in the sequence. Amino acids with the wildcard and amino acids to the
         right (C-term) of wildcard residues return 0. as rate.
+    return_sum: :obj:`bool`
+        If `True`, return the sum of the acid, base and water exchange rates. If `False`, return a 2D array with
 
     Returns
     -------
@@ -274,14 +277,14 @@ def k_int_from_sequence(
         if residue == "NT":
             continue
         elif i == 1:  # First residue
-            k_int.append(np.inf)
+            k_int.append([np.inf, np.inf, np.inf])
             continue
 
         next_residue = sequence[i + 1]
         prev_residue = sequence[i - 1]
         # Proline or unknown residues are set to zero rate
         if residue in ["P", "Pc"] or wildcard in [prev_residue, residue]:
-            k_int.append(0.0)
+            k_int.append([0.0, 0.0, 0.0])
             if next_residue == "CT":
                 break
             else:
@@ -311,9 +314,12 @@ def k_int_from_sequence(
         k_total_base = Fb * k_base * conc_OD
         k_total_water = Fb * k_water
 
-        k_int.append(k_total_acid + k_total_base + k_total_water)
+        k_int.append([k_total_acid, k_total_base, k_total_water])
 
         if next_residue == "CT":
             break
 
-    return np.array(k_int)
+    if return_sum:
+        return np.array(k_int).sum(axis=1)
+    else:
+        return np.array(k_int)
