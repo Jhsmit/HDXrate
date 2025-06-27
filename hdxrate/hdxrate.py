@@ -35,6 +35,25 @@ E_act = {
 
 D_E_act = {"D_HD": 1000.0, "D_DH": 1000.0 - 40, "D_HH": 1000.0 - 40}
 
+oligo_factors = np.array([2.34, 1.35, 1.585])
+
+# reference values for k_acid, k_base, k_water
+rates_cat = {
+    ("HD", "poly"): tuple((10 ** np.array([1.62, 10.18, -1.5])) / 60),
+    ("DH", "poly"): tuple((10 ** np.array([1.4, 10.0, -1.6])) / 60),
+    ("HH", "poly"): tuple((10 ** np.array([1.39, 10.08, -1.6])) / 60),
+    ("HD", "oligo"): tuple(
+        (10 ** np.array([1.62, 10.18, -1.5])) / 60 * np.array([2.34, 1.35, 1.585])
+    ),
+    ("DH", "oligo"): tuple(
+        (10 ** np.array([1.4, 10.0, -1.6])) / 60 * np.array([2.34, 1.35, 1.585])
+    ),
+    ("HH", "oligo"): tuple(
+        (10 ** np.array([1.39, 10.08, -1.6])) / 60 * np.array([2.34, 1.35, 1.585])
+    ),
+    ("HD", "3ala"): tuple((10 ** np.array([2.04, 10.36, -1.5])) / 60),
+}
+
 
 def get_side_chain_dictionary(temperature, pH, k_reference, activation_energy):
     """
@@ -177,7 +196,7 @@ def k_int_from_sequence(
         exchange. pH changes due to temperature difference between measuring temperature and exchange temperature is
         buffer dependent and is not corrected for.
     reference: :obj:`str`
-        Use `poly` or `oligo` reference data.
+        Use `poly`, `oligo` or '3ala` reference data.
     exchange_type: :obj:`str`
         The type of exchange. Options are `HD`, `DH` or `HH`.
     d_percentage: :obj:`float`
@@ -212,19 +231,16 @@ def k_int_from_sequence(
 
     activation_energy = E_act.copy()
     if exchange_type == "HD":
-        exponents = np.array([1.62, 10.18, -1.5])
         pD = correct_pH(pH_read, d_percentage) if ph_correction else pH_read
         pKD = 15.05
         k_reference = {"D": 4.48, "E": 4.93, "H": 7.42}  # HD
         activation_energy["D"] = D_E_act["D_HD"]
     elif exchange_type == "DH":
-        exponents = np.array([1.4, 10.0, -1.6])
         pD = pH_read
         pKD = 14.17
         k_reference = {"D": 3.87, "E": 4.33, "H": 7.0}  # DH
         activation_energy["D"] = D_E_act["D_DH"]
     elif exchange_type == "HH":
-        exponents = np.array([1.39, 10.08, -1.6])
         pD = pH_read
         pKD = 14.17
         k_reference = {"D": 3.88, "E": 4.35, "H": 7.11}  # HH
@@ -235,14 +251,10 @@ def k_int_from_sequence(
     conc_D = 10.0**-pD
     conc_OD = 10.0 ** (pD - pKD)
 
-    k_values = (10**exponents) / 60
-    oligo_factors = [2.34, 1.35, 1.585]
-    if reference == "poly":
-        k_acid_ref, k_base_ref, k_water_ref = k_values
-    elif reference == "oligo":
-        k_acid_ref, k_base_ref, k_water_ref = k_values * oligo_factors
-    else:
-        raise ValueError("Value for 'reference' mush be either 'poly' or 'oligo'")
+    try:
+        k_acid_ref, k_base_ref, k_water_ref = rates_cat[(exchange_type, reference)]
+    except KeyError:
+        raise
 
     sequence = list(sequence)
     sequence.insert(0, "NT")
