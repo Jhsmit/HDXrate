@@ -227,6 +227,9 @@ def k_int_from_sequence(
        Function, and Bioinformatics 28, 325–332 (1997).
     .. [4] Nguyen, D., Mayne, L., Phillips, M. C. & Walter Englander, S. Reference Parameters for Protein Hydrogen
        Exchange Rates. J. Am. Soc. Mass Spectrom. 29, 1936–1939 (2018).
+    .. [5] Stofella, M.; Seetaloo, N.; St John, A. N.; Paci, E.; Phillips, J. J.; Sobott, F. Recalibrating
+       Protection Factors Using Millisecond Hydrogen/Deuterium Exchange Mass Spectrometry. Anal. Chem.  97 (5), 2648–2657 (2025).
+
     """
 
     if len(sequence) < 3:
