@@ -231,6 +231,8 @@ def k_int_from_sequence(
         pKD = 14.17
         k_reference = {"D": 3.88, "E": 4.35, "H": 7.11}  # HH
         activation_energy["D"] = D_E_act["D_HH"]
+    else:
+        raise ValueError(f"Unsupported exchange type '{exchange_type}'")
 
     conc_D = 10.0**-pD
     conc_OD = 10.0 ** (pD - pKD)
