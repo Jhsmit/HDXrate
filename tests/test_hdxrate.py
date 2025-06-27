@@ -29,6 +29,31 @@ def seq2():
     return list(seq2)
 
 
+@pytest.fixture()
+def seq3():
+    letters = [
+        "A",
+        "C",
+        "F",
+        "G",
+        "I",
+        "K",
+        "L",
+        "M",
+        "N",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "V",
+        "W",
+        "Y",
+    ]
+
+    return reduce(add, [a + b for a, b in combinations(letters, 2)])
+
+
 def test_seq1_HD(seq1):
     # HD rates
     pH_read = 6.6
@@ -151,3 +176,20 @@ def test_seq2(seq2):
     # HH exchange
     rates = k_int_from_sequence(seq2, 279, 7, exchange_type="HH") * 60
     assert np.allclose(rates, reference_rates[:, 2], rtol=0.1, equal_nan=True)
+
+
+def test_3ala_ref(seq3):
+    k_int = k_int_from_sequence(
+        seq3, temperature=300, pH_read=7, reference="3ala", ph_correction=False
+    )
+
+    # reference rates from expfact
+    # https://github.com/pacilab/exPfact/tree/master/python
+    k_int_ref = np.load("k_int_ala3_test.npy")
+
+    nonzero = np.nonzero(k_int)
+    # multiply by 3600 to convert from 1/s to 1/hr
+    rel_diff = (k_int * 3600)[nonzero] / k_int_ref[nonzero]
+
+    expected = np.ones_like(rel_diff[1:]) * 1.01505365
+    assert np.allclose(rel_diff[1:], expected)
